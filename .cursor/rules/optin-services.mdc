@@ -1,0 +1,3 @@
+# Opt-in Services
+- Supabase obligatorio desde el inicio (pedir env).
+- Vercel/Clarity solo si dices "activar vercel/clarity".

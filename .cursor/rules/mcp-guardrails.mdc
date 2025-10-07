@@ -1,0 +1,5 @@
+# MCP Guardrails
+- Mostrar plan antes de ejecutar herramientas (qué/por qué/parámetros).
+- No escribir fuera del proyecto sin confirmación.
+- Crawls/search limitados por defecto a 3–5 resultados.
+- En error: mensaje exacto + última petición (sin secretos).

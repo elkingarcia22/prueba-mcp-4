@@ -1,0 +1,18 @@
+{
+  "source": ["tokens/color.dark.json"],
+  "platforms": {
+    "css-dark": {
+      "transformGroup": "css",
+      "buildPath": "src/styles/",
+      "files": [
+        {
+          "destination": "tokens.dark.css",
+          "format": "css/variables",
+          "options": {
+            "selector": ":root[data-theme='dark']"
+          }
+        }
+      ]
+    }
+  }
+}

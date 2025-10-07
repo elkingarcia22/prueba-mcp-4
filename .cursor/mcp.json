@@ -1,0 +1,65 @@
+{
+  "mcpServers": {
+    "tavily": {
+      "command": "npx",
+      "args": ["-y", "tavily-mcp"],
+      "env": {
+        "TAVILY_API_KEY": "${input:TAVILY_API_KEY}"
+      }
+    },
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "${input:FIRECRAWL_API_KEY}"
+      }
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${input:GITHUB_PAT}"
+      }
+    },
+    "storybook": {
+      "command": "npx",
+      "args": ["-y", "storybook-mcp"],
+      "env": {
+        "STORYBOOK_URL": "http://localhost:6006/index.json"
+      }
+    },
+    "supabase": {
+      "type": "http",
+      "url": "${input:SUPABASE_MCP_URL}",
+      "headers": {
+        "Authorization": "Bearer ${input:SUPABASE_MCP_TOKEN}"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "TAVILY_API_KEY",
+      "password": true
+    },
+    {
+      "type": "promptString",
+      "id": "FIRECRAWL_API_KEY",
+      "password": true
+    },
+    {
+      "type": "promptString",
+      "id": "GITHUB_PAT",
+      "password": true
+    },
+    {
+      "type": "promptString",
+      "id": "SUPABASE_MCP_URL"
+    },
+    {
+      "type": "promptString",
+      "id": "SUPABASE_MCP_TOKEN",
+      "password": true
+    }
+  ]
+}

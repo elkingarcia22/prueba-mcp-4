@@ -1,0 +1,4 @@
+# Storybook Doctor
+- Chequear /index.json y puerto; ofrecer puerto alterno.
+- Validar decorator ChakraProvider y carga de tokens (light/dark).
+- Proponer fix automático y reintentar smoke test.
