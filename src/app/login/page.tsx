@@ -10,9 +10,11 @@ import {
   Input,
   Text,
   VStack,
+  IconButton,
+  useColorMode,
 } from '@chakra-ui/react'
+import { FaSun, FaMoon } from 'react-icons/fa'
 import { useAuth } from '@/contexts/AuthContext'
-import { useTheme } from '@/contexts/ThemeContext'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -20,7 +22,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const { signIn } = useAuth()
-  const { theme, toggleTheme } = useTheme()
+  const { colorMode, toggleColorMode } = useColorMode()
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -42,35 +44,35 @@ export default function LoginPage() {
   return (
     <Container maxW="md" py={12}>
       <Box
-        bg="white"
-        _dark={{ bg: 'gray.800' }}
+        bg={colorMode === 'dark' ? 'gray.800' : 'white'}
         p={8}
         borderRadius="lg"
         boxShadow="lg"
         border="1px"
-        borderColor="gray.200"
-        _dark={{ borderColor: 'gray.700' }}
+        borderColor={colorMode === 'dark' ? 'gray.700' : 'gray.200'}
       >
         <VStack gap={6}>
-          <Box textAlign="center">
-            <Heading size="lg" color="gray.900" _dark={{ color: 'gray.50' }}>
-              Iniciar Sesión
-            </Heading>
-            <Text mt={2} color="gray.600" _dark={{ color: 'gray.400' }}>
-              Accede a tu cuenta de administrador
-            </Text>
+          <Box textAlign="center" w="full">
+            <VStack gap={2}>
+              <Heading size="lg" color={colorMode === 'dark' ? 'white' : 'gray.900'}>
+                Iniciar Sesión
+              </Heading>
+              <Text color={colorMode === 'dark' ? 'gray.400' : 'gray.600'}>
+                Accede a tu cuenta de administrador
+              </Text>
+            </VStack>
           </Box>
 
           {error && (
             <Box
               p={4}
               bg="red.50"
-              borderRadius="md"
               border="1px"
               borderColor="red.200"
-              _dark={{ bg: 'red.900', borderColor: 'red.700' }}
+              borderRadius="md"
+              w="full"
             >
-              <Text color="red.600" _dark={{ color: 'red.300' }}>
+              <Text color="red.600" fontSize="sm">
                 {error}
               </Text>
             </Box>
@@ -79,32 +81,46 @@ export default function LoginPage() {
           <Box as="form" onSubmit={handleSubmit} w="full">
             <VStack gap={4}>
               <Box w="full">
-                <Text mb={2} color="gray.900" _dark={{ color: 'gray.50' }} fontWeight="medium">
+                <Text mb={2} color={colorMode === 'dark' ? 'white' : 'gray.900'} fontWeight="medium">
                   Email
                 </Text>
                 <Input
                   type="email"
+                  placeholder="tu@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="tu@email.com"
-                  bg="white"
-                  _dark={{ bg: 'gray.700' }}
-                  required
+                  bg={colorMode === 'dark' ? 'gray.700' : 'white'}
+                  borderColor={colorMode === 'dark' ? 'gray.600' : 'gray.300'}
+                  color={colorMode === 'dark' ? 'white' : 'gray.900'}
+                  _hover={{
+                    borderColor: colorMode === 'dark' ? 'gray.500' : 'gray.400',
+                  }}
+                  _focus={{
+                    borderColor: 'brand.500',
+                    boxShadow: `0 0 0 1px ${colorMode === 'dark' ? '#0ea5e9' : '#0284c7'}`,
+                  }}
                 />
               </Box>
 
               <Box w="full">
-                <Text mb={2} color="gray.900" _dark={{ color: 'gray.50' }} fontWeight="medium">
+                <Text mb={2} color={colorMode === 'dark' ? 'white' : 'gray.900'} fontWeight="medium">
                   Contraseña
                 </Text>
                 <Input
                   type="password"
+                  placeholder="Tu contraseña"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Tu contraseña"
-                  bg="white"
-                  _dark={{ bg: 'gray.700' }}
-                  required
+                  bg={colorMode === 'dark' ? 'gray.700' : 'white'}
+                  borderColor={colorMode === 'dark' ? 'gray.600' : 'gray.300'}
+                  color={colorMode === 'dark' ? 'white' : 'gray.900'}
+                  _hover={{
+                    borderColor: colorMode === 'dark' ? 'gray.500' : 'gray.400',
+                  }}
+                  _focus={{
+                    borderColor: 'brand.500',
+                    boxShadow: `0 0 0 1px ${colorMode === 'dark' ? '#0ea5e9' : '#0284c7'}`,
+                  }}
                 />
               </Box>
 
@@ -114,38 +130,42 @@ export default function LoginPage() {
                 w="full"
                 isLoading={loading}
                 bg="brand.600"
-                _hover={{ bg: 'brand.700' }}
                 color="white"
+                _hover={{
+                  bg: 'brand.700',
+                }}
               >
                 {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
               </Button>
             </VStack>
           </Box>
 
-          <VStack gap={2}>
-            <Text color="gray.600" _dark={{ color: 'gray.400' }}>
+          <VStack gap={2} w="full">
+            <Text color={colorMode === 'dark' ? 'gray.400' : 'gray.600'} fontSize="sm">
               ¿No tienes cuenta?{' '}
               <Text
                 as="span"
                 color="brand.600"
-                _hover={{ color: 'brand.700' }}
                 cursor="pointer"
                 textDecoration="underline"
-                onClick={() => window.location.href = '/register'}
+                onClick={() => router.push('/register')}
               >
                 Regístrate aquí
               </Text>
             </Text>
-
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              color="gray.600"
-              _dark={{ color: 'gray.400' }}
-            >
-              {theme === 'light' ? '🌙' : '☀️'} {theme === 'light' ? 'Modo Oscuro' : 'Modo Claro'}
-            </Button>
+            
+            <Box display="flex" alignItems="center" gap={2}>
+              <IconButton
+                aria-label="Toggle theme"
+                icon={colorMode === 'light' ? <FaMoon /> : <FaSun />}
+                onClick={toggleColorMode}
+                variant="ghost"
+                size="sm"
+              />
+              <Text fontSize="sm" color={colorMode === 'dark' ? 'gray.400' : 'gray.600'}>
+                {colorMode === 'light' ? 'Modo Claro' : 'Modo Oscuro'}
+              </Text>
+            </Box>
           </VStack>
         </VStack>
       </Box>

@@ -2,11 +2,12 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Container, Heading, Text, VStack, Spinner } from '@chakra-ui/react'
+import { Container, Heading, Text, VStack, Spinner, useColorMode } from '@chakra-ui/react'
 import { useAuth } from '@/contexts/AuthContext'
 
 export default function Home() {
   const { user, loading } = useAuth()
+  const { colorMode } = useColorMode()
   const router = useRouter()
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function Home() {
       <Container maxW="md" py={12}>
         <VStack gap={4}>
           <Spinner size="xl" />
-          <Text>Cargando...</Text>
+          <Text color={colorMode === 'dark' ? 'white' : 'gray.900'}>Cargando...</Text>
         </VStack>
       </Container>
     )
@@ -33,10 +34,10 @@ export default function Home() {
   return (
     <Container maxW="md" py={12}>
       <VStack gap={6} textAlign="center">
-        <Heading size="lg">
+        <Heading size="lg" color={colorMode === 'dark' ? 'white' : 'gray.900'}>
           Sistema de Autenticación
         </Heading>
-        <Text>
+        <Text color={colorMode === 'dark' ? 'gray.400' : 'gray.600'}>
           Redirigiendo...
         </Text>
       </VStack>
