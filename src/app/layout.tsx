@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ChakraProvider } from '@chakra-ui/react';
-import theme from '@/theme/system';
+import { ChakraProvider } from '@/components/ChakraProvider';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 
@@ -32,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <ChakraProvider theme={theme}>
+        <ChakraProvider>
           <ThemeProvider>
             <AuthProvider>
               {children}

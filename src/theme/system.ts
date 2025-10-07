@@ -1,4 +1,6 @@
-const theme = {
+import { extendTheme } from '@chakra-ui/react';
+
+const theme = extendTheme({
   colors: {
     brand: {
       50: '#f0f9ff',
@@ -17,6 +19,14 @@ const theme = {
     initialColorMode: 'light',
     useSystemColorMode: false,
   },
-};
+  styles: {
+    global: {
+      body: {
+        bg: 'gray.50',
+        color: 'gray.900',
+      },
+    },
+  },
+});
 
 export default theme;
