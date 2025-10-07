@@ -14,14 +14,25 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const { colorMode, toggleColorMode } = useColorMode()
-  const [theme, setTheme] = useState<Theme>(colorMode as Theme)
+  const [theme, setTheme] = useState<Theme>('light')
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     setTheme(colorMode as Theme)
   }, [colorMode])
 
   const toggleTheme = () => {
     toggleColorMode()
+  }
+
+  // Evitar problemas de hidratación
+  if (!mounted) {
+    return (
+      <ThemeContext.Provider value={{ theme: 'light', toggleTheme }}>
+        {children}
+      </ThemeContext.Provider>
+    )
   }
 
   return (

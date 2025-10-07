@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Box, Container, Heading, Text, VStack, Button, Spinner } from '@chakra-ui/react'
 import { useAuth } from '@/contexts/AuthContext'
+import { NoSSR } from '@/components/NoSSR'
 
 export default function Home() {
   const { user, loading } = useAuth()
@@ -31,15 +32,28 @@ export default function Home() {
   }
 
   return (
-    <Container maxW="md" py={12}>
-      <VStack gap={6} textAlign="center">
-        <Heading size="lg" color="gray.900" _dark={{ color: 'gray.50' }}>
-          Sistema de Autenticación
-        </Heading>
-        <Text color="gray.600" _dark={{ color: 'gray.400' }}>
-          Redirigiendo...
-        </Text>
-      </VStack>
-    </Container>
+    <NoSSR fallback={
+      <Container maxW="md" py={12}>
+        <VStack gap={6} textAlign="center">
+          <Heading size="lg" color="gray.900" _dark={{ color: 'gray.50' }}>
+            Sistema de Autenticación
+          </Heading>
+          <Text color="gray.600" _dark={{ color: 'gray.400' }}>
+            Cargando...
+          </Text>
+        </VStack>
+      </Container>
+    }>
+      <Container maxW="md" py={12}>
+        <VStack gap={6} textAlign="center">
+          <Heading size="lg" color="gray.900" _dark={{ color: 'gray.50' }}>
+            Sistema de Autenticación
+          </Heading>
+          <Text color="gray.600" _dark={{ color: 'gray.400' }}>
+            Redirigiendo...
+          </Text>
+        </VStack>
+      </Container>
+    </NoSSR>
   )
 }
