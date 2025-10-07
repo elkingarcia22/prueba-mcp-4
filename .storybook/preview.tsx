@@ -1,12 +1,12 @@
 import type { Preview } from '@storybook/nextjs-vite';
 import { ChakraProvider } from '@chakra-ui/react';
-import system from '../src/theme/system';
+import theme from '../src/theme/system';
 import '../src/styles/tokens.light.css';
 import '../src/styles/tokens.dark.css';
 
 export const decorators = [
   (Story) => (
-    <ChakraProvider value={system}>
+    <ChakraProvider theme={theme}>
       <Story />
     </ChakraProvider>
   )
